@@ -1,0 +1,28 @@
+{
+  "fr.ans.psc.dam.model.Ps": [
+    {
+      "nationalId": "899900007776",
+	  "dams": [
+		{
+		  "identifiantLieuDeTravail": "99900007776001",
+		  "typeIdentifiant": "6",
+          "raisonSociale": "CABINET DR BIDEHOP0000777",
+          "codeModeExercice": "0",
+          "numActivite": "2101053284",
+          "numAssuranceMaladie": "991029695",
+          "dateDebutValidite": "1900-01-01",
+          "codeConventionnel": "2",
+          "codeIndicateurFacturation": "2",
+          "codeZoneIK": "0",
+          "codeZoneTarifaire": "85",
+          "codeAgrement1": "03",
+          "codeAgrement2": "00",
+          "codeAgrement3": "00",
+          "habilitationFse": "001",
+          "habilitationLot": "001"
+		}
+	  ]
+	}
+  ]  
+}
+

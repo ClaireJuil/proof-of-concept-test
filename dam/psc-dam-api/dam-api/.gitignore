@@ -1,0 +1,15 @@
+/target/
+/*.settings
+/*.classpath
+/*.project
+/logs
+/extract/
+/*.csv
+/src/test/resources/*.csv
+/src/test/resources/*.properties
+/src/main/resources/application.properties
+/src/main/java/fr/ans/psc/dam/repository/OraclePsRepositoryImpl.java
+/.classpath
+/.project
+/.settings
+

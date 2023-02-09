@@ -1,0 +1,115 @@
+= POC PSC-DAM-API
+
+
+== Introduction
+Ce site est la documentation de l'API PSC-DAM-API extraite des tests.
+Il contient des exemples d'appel du webService pour différents cas de recherche de DAMs pour un Personnel de Sante (Ps)
+
+
+== Lecture de DAMs d'un PS - Cas passant 200
+
+=== Liste complète des DAMs du PS
+Demande de la liste des DAMs du PS en incluant les DAMs fermés depuis moins de 3 mois
+
+Requête http:
+include::{snippets}/DAM_FULL/OK/http-request.adoc[]
+
+Requête avec curl:
+include::{snippets}/DAM_FULL/OK/curl-request.adoc[]
+
+.réponse
+include::{snippets}/DAM_FULL/OK/http-response.adoc[]
+
+Payload:
+include::{snippets}/DAM_FULL/OK/response-body.adoc[]
+
+=== Liste des DAMS, filtre: non fermés
+Demande de la liste des DAMs uniquement non fermés du PS 
+
+Requête http:
+include::{snippets}/DAM_Filtre_Actuel/OK/http-request.adoc[]
+
+Requête avec curl:
+include::{snippets}/DAM_Filtre_Actuel/OK/curl-request.adoc[]
+
+.réponse
+include::{snippets}/DAM_Filtre_Actuel/OK/http-response.adoc[]
+
+Payload:
+include::{snippets}/DAM_Filtre_Actuel/OK/response-body.adoc[]
+
+=== Liste des DAMS, filtre: mode Exercice
+Demande de la liste des DAMs du PS pour un mode d'excercice particulier ('0' Libéral, '1' salarié)
+
+Requête http:
+include::{snippets}/DAM_Filtre_ModeExercice/OK/http-request.adoc[]
+
+Requête avec curl:
+include::{snippets}/DAM_Filtre_ModeExercice/OK/curl-request.adoc[]
+
+.réponse
+include::{snippets}/DAM_Filtre_ModeExercice/OK/http-response.adoc[]
+
+Payload:
+include::{snippets}/DAM_Filtre_ModeExercice/OK/response-body.adoc[]
+
+=== Liste des DAMS, filtre: idTechniqueStructure
+Demande de la liste des DAMs du PS pour une structure donnée (idTechniqueStructure)
+L'idTechniqueStructure peut être extrait de la structure Activité du UserInfo de ProSanté Connect de l'utiliateur
+
+Requête http:
+include::{snippets}/DAM_Filtre_idTechniqueStructure/OK/http-request.adoc[]
+
+Requête avec curl:
+include::{snippets}/DAM_Filtre_idTechniqueStructure/OK/curl-request.adoc[]
+
+.réponse
+include::{snippets}/DAM_Filtre_idTechniqueStructure/OK/http-response.adoc[]
+
+Payload:
+include::{snippets}/DAM_Filtre_idTechniqueStructure/OK/response-body.adoc[]
+
+=== Liste des DAMS, filtres: non fermés, idTechniqueStructure, modeExercice
+
+Requête http:
+include::{snippets}/DAM_TousFiltres/OK/http-request.adoc[]
+
+Requête avec curl:
+include::{snippets}/DAM_TousFiltres/OK/curl-request.adoc[]
+
+.réponse
+include::{snippets}/DAM_TousFiltres/OK/http-response.adoc[]
+
+Payload:
+include::{snippets}/DAM_TousFiltres/OK/response-body.adoc[]
+
+== Lecture de DAMs Cas 410
+La requête est correcte mais le WS n'a pas de DAMs à renvoyer à l'utilisateur 
+(PS non trouvé, filtres trop restrictifs,...)
+
+Requête http:
+include::{snippets}/DAM_Filtre_ModeExercice/410/http-request.adoc[]
+
+Requête avec curl:
+include::{snippets}/DAM_Filtre_ModeExercice/410/curl-request.adoc[]
+
+.réponse
+include::{snippets}/DAM_Filtre_ModeExercice/410/http-response.adoc[]
+
+Payload:
+include::{snippets}/DAM_Filtre_ModeExercice/410/response-body.adoc[]
+
+== PSC Token non valide Erreur 401
+Un token PSC a été fourni dans le header 'Autorization' de la requête, mais ce token n'est plus valide (actif:false)
+
+Requête http:
+include::{snippets}/DAM_Non_Autorise/401/http-request.adoc[]
+
+Requête avec curl:
+include::{snippets}/DAM_Non_Autorise/401/curl-request.adoc[]
+
+.réponse
+include::{snippets}/DAM_Non_Autorise/401/http-response.adoc[]
+
+Payload:
+include::{snippets}/DAM_Non_Autorise/401/response-body.adoc[]

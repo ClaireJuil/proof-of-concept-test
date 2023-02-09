@@ -1,0 +1,12 @@
+{
+  "fr.ans.psc.rass.model.StructureIds": [
+       {
+     	  "identifiantMetier": "99900007776001",
+		  "structureTechnicalId": "6"
+		},
+		{
+     	  "identifiantMetier": "10002525375006",
+		  "structureTechnicalId": "R10000000553881"
+		}
+	  ]
+	}  

@@ -1,0 +1,125 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Dam Rest Api
+  description: API Rest de ledcture des DonnéesAssuranceMaladie (DAM)
+  contact:
+    email: prosanteconnect@esante.gouv.fr
+paths:
+  '/dams/get_dams/{nationalId}':
+    get:
+      summary: Lecture des DAMs d'un PS
+      description: Renvoie la liste des DAMs d'un PS (nationaId)
+      tags:
+        - getFullDams
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleDams'
+              examples:
+                example-1:
+                  value:
+                    - identifiantLieuDeTravail: '99900007776001'
+                      codeTypeIdentifiant: '6'
+                      raisonSociale: 'CABINET DR BIDEHOP0000777'
+                      codeModeExercice: '0'
+                      numActivite: '2101053284'
+                      numAssuranceMaladie: '991029695'
+                      dateDebutValidite: '01-01-1900'
+                      dateFinValidite: ''
+                      codeConventionnel: '2'
+                      codeIndicateurFacturation: '2'
+                      codeZoneIK: '0'
+                      codeZoneTarifaire: '85'
+                      codeAgrement1: '03'
+                      codeAgrement2: '00'
+                      codeAgrement3: '00'
+                      habilitationFse: '001'
+                      habilitationLot: '001'
+        '410':
+          description: PS non trouvé ou PS sans DAMs
+        '503':
+          description: service indisponible
+      operationId: lecture des DAMs
+      parameters: []
+    parameters:
+      - schema:
+          type: string
+        name: nationalId
+        in: path
+        required: true
+        description: Identifiant National du PS 
+servers:
+  - description: POC DAM - BACK END WS- lecture des DAMs
+    url: 'http://psc-dam-reader-api'
+tags:
+  - name: getFullDams
+components:
+  schemas:
+    SimpleDams:
+      type: array
+      items:
+        $ref: '#/components/schemas/SimpleDam'
+      x-examples:
+        example-1:
+          nationalId: '810101343233'
+          SimpleDams:
+            - identifiantLieuDeTravail: '10005632608003'
+              codeTypeIdentifiant: '6'
+              raisonSociale: RAISON SOCIALE ...
+              codeModeExercice: '0'
+              numActivite: '2102496751'
+              numAssuranceMaladie: '347629008'
+              dateDebutValidite: 18-01-1957
+              codeConventionnel: '1'
+              codeIndicateurFacturation: '2'
+              codeZoneIK: '01'
+              codeZoneTarifaire: '30'
+              codeAgrement1: '0'
+              codeAgrement2: '0'
+              codeAgrement3: '0'
+              habilitationFse: '000'
+              habilitationLot: '000'
+    SimpleDam:
+      title: SimpleDam
+      type: object
+      properties:
+        identifiantLieuDeTravail:
+          type: string
+        codeTypeIdentifiant:
+          type: string
+        raisonSociale:
+          type: string
+        codeSpecialite:
+          type: string  
+        codeModeExercice:
+          type: string
+        numActivite:
+          type: string
+        numAssuranceMaladie:
+          type: string
+        dateDebutValidite:
+          type: string
+        dateFinValidite:
+          type: string
+        codeConventionnel:
+          type: string
+        codeIndicateurFacturation:
+          type: string
+        codeZoneIK:
+          type: string
+        codeZoneTarifaire:
+          type: string
+        codeAgrement1:
+          type: string
+        codeAgrement2:
+          type: string
+        codeAgrement3:
+          type: string
+        habilitationFse:
+          type: string
+        habilitationLot:
+          type: string

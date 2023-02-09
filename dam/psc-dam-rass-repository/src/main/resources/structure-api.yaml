@@ -1,0 +1,70 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Structure Ids Rest Api
+  description: Rest Api to get Structure Id for CPS system access
+  contact:
+    email: prosanteconnect@esante.gouv.fr
+paths:
+  '/ids/get/{structureTechnicalId}':
+    get:
+      summary: get ids endpoint
+      description: return an StructureIds Object for the TechnicalStructureId extracted from UserInfo
+      tags:
+        - structure
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StructureIds'
+        '410':
+          description: GONE. Pas d'identifiant structure ou plusieurs identifiants trouvés en base de données
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'          
+        '503':
+          description: Base de données inaccessible
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'          
+      operationId: get-ids
+      parameters:
+        - schema:
+            type: string
+          name: structureTechnicalId
+          in: path
+          required: true
+          description: Structure Technical ID
+servers:
+  - description: POC DAM
+    url: 'http://psc-dam-api'
+tags:
+  - name: structure
+components:
+  responses: {}
+  schemas:
+    StructureIds:
+      title: StructureIds
+      type: object
+      properties:
+        identifiantMetier:
+          type: string
+        structureTechnicalId:
+          type: string
+      x-examples:
+        example-1:
+          identifiantMetier: '380004150'
+          structureTechnicalId: F380004150
+    Error:
+      title: Error
+      type: object
+      description: Error object returned when signature validation fails
+      properties:
+        code:
+          type: string
+        message:
+          type: string

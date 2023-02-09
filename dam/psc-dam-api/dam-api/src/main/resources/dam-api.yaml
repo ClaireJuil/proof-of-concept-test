@@ -1,0 +1,190 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Dam Rest Api
+  description: Rest Api pour lire les DAMS (données de facturation)
+  contact:
+    email: prosanteconnect@esante.gouv.fr
+paths:
+  /get_dams:
+    get:
+      summary: lecture des dams
+      description: Renvoie une liste de DAMs pour l'IdNational et les filtres sélectionnés
+      tags:
+        - dams
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PsDAMs'
+        '400':
+          description: Paramètre obligatoire manquant ou null
+        '401':
+          description: Non authorisé. Token ProSante non valide ou non actif
+        '410':
+          description: 'Gone. Aucune DAM à renvoyér. Aucun PS trouvé en base pour l''''IdNational, ou pas DAMs (avant ou après filtrage)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Erreur technique
+        '503':
+          description: Service non disponible (un des WS consommés ou la BDD n''est pas accessible)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: dams
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: idNational
+          required: true
+          description: Identifiant National du PS
+        - schema:
+            type: boolean
+            default: false
+          in: query
+          name: dontFermes
+          description: Inclus les DAMs avec une DateFinValidite de moins de 3 mois
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: idTechniqueStructure
+          description: Id Technique de la structure (champ extrait de la Situation d'exercice du userInfo)
+        - schema:
+            type: string
+          in: query
+          name: modeExercice
+          description: 0 pour Libéral-1 pour Salarié
+servers:
+  - description: POC DAM
+    url: 'http://psc-dam-api'
+tags:
+  - name: dams
+  - name: situationDeFacturation
+components:
+  responses: {}
+  schemas:
+    PsDAMs:
+      title: PsDAMs
+      type: object
+      properties:
+        nationalId:
+          type: string
+        dams:
+          type: array
+          items:
+            $ref: '#/components/schemas/RichDam'
+      x-examples:
+        example-1:
+          nationalId: '810101343233'
+          dams:
+            - identifiantLieuDeTravail: '10005632608003'
+              typeIdentifiant: ''
+              codeTypeIdentifiant: ''
+              raisonSociale: ''
+              modeExercice: Libéral
+              codeModeExercice: '0'
+              numActivite: '2102496517'
+              numActiviteRass: '1011356070'
+              numAssuranceMaladie: '341234567'
+              dateDebutValidite: 18-01-1957
+              dateFinValidite: ''
+              specialite: infirmier
+              codeSpecialite: '50'
+              conventionnement: Conventionné
+              codeConventionnel: '1'
+              indicateurFacturation: Libellé indicateur facturation 2
+              codeIndicateurFacturation: '2'
+              zoneTarifaire: Zone B
+              codeZoneTarifaire: '30'
+              zoneIK: Indemnités kilométriques plaine
+              codeZoneIK: '01'
+              agrement1: Pas d'agrément
+              codeAgrement1: '0'
+              agrement2: Pas d'agrément
+              codeAgrement2: '0'
+              agrement3: Pas d'agrément
+              codeAgrement3: '0'
+              habilitationFse: true
+              habilitationLot: true
+    RichDam:
+      title: RichDam
+      type: object
+      properties:
+        identifiantLieuDeTravail:
+          type: string
+        typeIdentifiant:
+          type: string
+        codeTypeIdentifiant:
+          type: string
+        raisonSociale:
+          type: string
+        modeExercice:
+          type: string
+        codeModeExercice:
+          type: string
+        numActivite:
+          type: string
+        numAssuranceMaladie:
+          type: string
+        dateDebutValidite:
+          type: string
+        dateFinValidite:
+          type: string
+        specialite:
+          type: string
+        codeSpecialite:
+          type: string
+        conventionnement:
+          type: string
+        codeConventionnel:
+          type: string
+        indicateurFacturation:
+          type: string
+        codeIndicateurFacturation:
+          type: string
+        zoneIK:
+          type: string
+        codeZoneIK:
+          type: string
+        zoneTarifaire:
+          type: string
+        codeZoneTarifaire:
+          type: string
+        agrement1:
+          type: string
+        codeAgrement1:
+          type: string
+        agrement2:
+          type: string
+        codeAgrement2:
+          type: string
+        agrement3:
+          type: string
+        codeAgrement3:
+          type: string
+        habilitationFse:
+          type: boolean
+        habilitationLot:
+          type: boolean
+    Error:
+      title: Error
+      type: object
+      description: Error object returned when signature validation fails
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    Pro-SanteConnect_BAS:
+      type: openIdConnect
+      description: 'header Authorization (BAS PSC)'
+      openIdConnectUrl: 'https://auth.bas.psc.esante.gouv.fr/auth/realms/esante-wallet/.well-known/wallet-openid-configuration'

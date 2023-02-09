@@ -1,0 +1,19 @@
+{
+    "exp": 1628250495,
+    "iat": 1628250435,
+    "auth_time": 1628250434,
+    "jti": "0cc00f99-3f1b-4799-9222-a944ca82c310",
+    "iss": "https://auth.bas.esw.esante.gouv.fr/auth/realms/esante-wallet",
+    "sub": "f:550dc1c8-d97b-4b1e-ac8c-8eb4471cf9dd:899700218896",
+    "typ": "Bearer",
+    "azp": "ans-poc-bas-psc",
+    "nonce": "",
+    "session_state": "e0e82435-fef5-430b-9b31-187fe3b0ffe6",
+    "preferred_username": "899700218896",
+    "email_verified": false,
+    "acr": "eidas3",
+    "scope": "openid profile email scope_all",
+    "client_id": "ans-poc-bas-psc",
+    "username": "899700218896",
+    "active": true
+}

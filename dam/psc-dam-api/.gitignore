@@ -1,0 +1,9 @@
+/target/
+/*.settings
+/*.classpath
+/*.project
+/.classpath
+/.project
+/.settings
+/cg-mongo-client-api/target/
+/rass-mongo-client-api/target/

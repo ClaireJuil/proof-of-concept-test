@@ -1,0 +1,11 @@
+/target/
+/target/
+/*.settings
+/*.classpath
+/*.project
+/.classpath
+/.project
+/.settings
+/src/main/resources/*.properties
+/src/test/resources/*.properties
+/logs/
